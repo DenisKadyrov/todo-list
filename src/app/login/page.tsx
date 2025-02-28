@@ -43,8 +43,6 @@ export default function LoginPage() {
     setFieldTouched,
     isValid,
     isSubmitting,
-    setValues,
-    resetForm,
   } = useFormik({
     initialValues: {
       email: "",
