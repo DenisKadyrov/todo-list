@@ -45,7 +45,7 @@ export default function LoginPage() {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      email: "",
+      login: "",
       password: "",
     },
     validationSchema: loginSchema,
@@ -73,29 +73,28 @@ export default function LoginPage() {
 				<form className="space-y-6" onSubmit={handleSubmit} noValidate>
 					<div>
 						<label
-							htmlFor="email"
+							htmlFor="login"
 							className="block text-sm font-medium leading-6 text-black"
 						>
 							Email address
 						</label>
 						<div className="mt-2">
 							<input
-								id="email"
-								name="email"
-								type="email"
-								value={values.email}
+								id="login"
+								name="login"
+								type="text"
+								value={values.login}
 								onChange={handleChange}
-								onBlur={() => handleTouched("email")}
-								placeholder="rahul@xyz.com"
-								autoComplete="email"
+								onBlur={() => handleTouched("login")}
+								placeholder="login"
 								required
 								className={`w-full rounded-md border-5 bg-transparent/5 placeholder:text-black/30 border-gray-600 py-1.5 text-black shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6 ${
-									touched.email && errors.email
+									touched.login && errors.login
 										? " focus:outline-none focus:border-red-600 border-2 bg-transparent border-red-600 placeholder:text-gray-400 transition-all"
 										: ""}  `}
 							/>
-							{touched.email && (
-								<p className="text-red-600 mt-2 text-sm">{errors.email}</p>
+							{touched.login && (
+								<p className="text-red-600 mt-2 text-sm">{errors.login}</p>
 							)} 
 						</div>
 					</div>
@@ -132,6 +131,7 @@ export default function LoginPage() {
 					</div>
 					<div className="grid grid-cols-1 gap-3">
 						<button
+							onClick={onLogin}
 							type="submit"
 							disabled={!isValid || isSubmitting}
 							className="cursor-pointer flex items-center gap-2 justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

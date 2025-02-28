@@ -14,7 +14,6 @@ export default function SignupPage() {
 	const [ isLoading, setLoading ] = useState(false);
 	// const {toast} = useToast();
 
-	//backend call for sign up
 	const onSignup = async (values: any) => {
 		try {
 			setLoading(true);
@@ -27,20 +26,20 @@ export default function SignupPage() {
 				// toast({title: responseData.message});
 			}
 		} catch (error: any) {
-			if (error.response.data.error) {
+			// if (error.response.data.error) {
+			console.log("anything not ok")
 				// If server response contains error message, display it
 				// toast({title: error.response.data.error, variant: "destructive"});
-			} else {
+			// } else {
 				// Otherwise, display a generic error message
 				// toast({title: "An error occurred during login. Please try again later."});
-			}
-			resetForm();
+			// }
+			// resetForm();
 		} finally {
-		setLoading(false);
+			setLoading(false);
 		}
 	};
 
-	//form submitting and validation handling
 	const {
 		values,
 		handleChange,
@@ -56,14 +55,14 @@ export default function SignupPage() {
 			login: "",
 			password: "",
 			firstname: "",
-      lastname: "",
-      patronymic: "",
-      boss: "",
+			lastname: "",
+			patronymic: "",
+			boss: "",
 		},
 		validationSchema: signupSchema,
 		onSubmit: (values) => {
 			//1st check on first render and refresh value is not empty
-			if (values.firstname && values.lastname && values.patronymic&& values.login && values.password) {
+			if (values.firstname && values.lastname && values.patronymic && values.login && values.password) {
 				onSignup(values);
 			}
 		},
@@ -90,7 +89,7 @@ export default function SignupPage() {
 								htmlFor="login"
 								className="block text-sm font-medium leading-6 text-black"
 							>
-                Login
+								Login
 							</label>
 							<div className="mt-2">
 								<input
@@ -99,7 +98,6 @@ export default function SignupPage() {
 									type="login"
 									value={values.login}
 									onChange={handleChange}
-									//check the felid value is touched before make the felid touched value true
 									onBlur={() => handleBlur("login")}
 									placeholder="your login"
 									required
@@ -282,9 +280,9 @@ export default function SignupPage() {
 									isValid
 										? "bg-blue-600 hover:bg-blue-500 slide-in-elliptic-top-fwd"
 										: "bg-red-600 cursor-not-allowed hover:bg-red-500 shake-horizontal"
-								} 
-                
-                cursor-pointer flex items-center gap-2 w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm`}
+									} 
+									cursor-pointer flex items-center gap-2 w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm`
+								}
 							>
 								{isSubmitting ? "Signing Up..." : "Sign Up"}
 								{isLoading && <BiLoaderAlt className="text-lg animate-spin" />}
