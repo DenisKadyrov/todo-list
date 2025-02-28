@@ -45,7 +45,7 @@ model User {
   login      String  @unique @db.VarChar(100)
   password   String
   boss       User?   @relation("Boss", fields: [bossId], references: [id])
-  bossId     Int
+  bossId     Int?
   subordinate User[] @relation("Boss")
   tasks      Task[]  @relation("CreatedTasks")
   respTasks  Task[]  @relation("ReponTasks")
