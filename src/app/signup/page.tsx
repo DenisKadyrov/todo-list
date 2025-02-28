@@ -1,66 +1,17 @@
 "use client";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {BiLoaderAlt} from "react-icons/bi";
+import { useRouter } from "next/navigation";
+import { BiLoaderAlt } from "react-icons/bi";
 import axios from "axios";
-import {useState} from "react";
-import {useFormik} from "formik";
-import * as yup from "yup";
+import { useState} from "react";
+import { useFormik } from "formik";
+import { signupSchema} from "@/lib/defenitions";
 // import {useToast} from "@/components/ui/use-toast";
 
-//TODO: catch block run 1st before try block fix the bug later
-
-//yup validation schema for signup form
-const userSchema = yup.object().shape({
-	firstname: yup
-		.string()
-		.required("Firstname is required")
-		.min(3, "Firtname must be at least 3 characters")
-		.max(20, "Firstname must not exceed 20 characters")
-		.matches(
-			/^[a-zA-Z-]+$/,
-			"Firstname can only contain letters"
-		),
-	lastname: yup
-		.string()
-		.required("Lastname is required")
-		.min(3, "Lastname must be at least 3 characters")
-		.max(20, "Lastname must not exceed 20 characters")
-		.matches(
-			/^[a-zA-Z-]+$/,
-			"Lastname can only contain letters"
-		),
-	patronymic: yup
-		.string()
-		.required("Patronymic is required")
-		.min(3, "Patronymic must be at least 3 characters")
-		.max(20, "Patronymic must not exceed 20 characters")
-		.matches(
-			/^[a-zA-Z-]+$/,
-			"Patronymic can only contain letters"
-		),
-	login: yup
-  .string()
-  .required("Login is required")
-  .min(3, "Login must be at least 3 characters")
-  .max(20, "Login must not exceed 20 characters")
-  .matches(
-    /^[a-zA-Z0-9_-]+$/,
-    "Login can only contain letters, numbers, underscores, and hyphens",
-  ),
-	password: yup
-		.string()
-		.required("Password is required")
-		.min(8, "Password must be at least 8 characters")
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]+$/,
-			"Password must contain at least one uppercase letter, one lowercase letter, and one digit"
-		),
-});
 
 export default function SignupPage() {
 	const router = useRouter();
-	const [isLoading, setLoading] = useState(false);
+	const [ isLoading, setLoading ] = useState(false);
 	// const {toast} = useToast();
 
 	//backend call for sign up
@@ -85,7 +36,7 @@ export default function SignupPage() {
 			}
 			resetForm();
 		} finally {
-			setLoading(false);
+		setLoading(false);
 		}
 	};
 
@@ -109,7 +60,7 @@ export default function SignupPage() {
       patronymic: "",
       boss: "",
 		},
-		validationSchema: userSchema,
+		validationSchema: signupSchema,
 		onSubmit: (values) => {
 			//1st check on first render and refresh value is not empty
 			if (values.firstname && values.lastname && values.patronymic&& values.login && values.password) {
