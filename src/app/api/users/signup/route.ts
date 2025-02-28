@@ -1,10 +1,11 @@
 import prisma from "@/lib/prisma";
 import {NextRequest, NextResponse} from "next/server";
-// import bcryptjs from "bcrypt";
+import bcryptjs from 'bcryptjs';
 
 
-export async function POST(request) {
+export async function POST(request: NextRequest) {
     try {
+        console.log("user creating")
         //getting data form frontend body
 		const reqBody = await request.json();
 
@@ -18,13 +19,12 @@ export async function POST(request) {
 		}
 
 		//hashing password
-		// const salt = await bcryptjs.genSalt(10);
-		// const hashedPassword = await bcryptjs.hash(reqBody.password, salt);
+		const hashedPassword = await bcryptjs.hash(reqBody.password, 10);
 
         await prisma.user.create({
             data: {
                 login: reqBody.login,
-                password: reqBody.password, 
+                password: hashedPassword, 
                 firstName: reqBody.firstname,
                 lastName: reqBody.lastname,
                 patronymic: reqBody.patronymic,
@@ -36,7 +36,6 @@ export async function POST(request) {
 			success: true,
 		});
 	} catch (error: any) {
-        console.log(error.message)
-		// return NextResponse.json({error: error.message}, {status: 500});
+		return NextResponse.json({error: error.message}, {status: 500});
 	}
 }
